@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Table = () => {
+const Table = (props) => {
     const TableHeader =  {
         border: '1px solid black',
         padding: '8px',
@@ -8,7 +8,7 @@ const Table = () => {
         backgroundColor: '#f2f2f2',
       };
     
-      const TableCell = {
+    const TableCell = {
         border: '1px solid black',
         padding: '8px',
         textAlign: 'left',
@@ -27,12 +27,6 @@ const Table = () => {
             <td style={TableCell}>Elective 2</td>
             <td style={TableCell}>4</td>
             <td style={TableCell}>A</td>
-        </tr>
-        <tr>
-            <td style={TableCell}> IS 2140</td>
-            <td style={TableCell}>Software Engineering</td>
-            <td style={TableCell}>5</td>
-            <td style={TableCell}>B</td>
         </tr>
     </table>
     </>
