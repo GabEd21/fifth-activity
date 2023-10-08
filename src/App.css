@@ -1,12 +1,40 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: row; 
+  justify-content: flex-start; 
+  align-items: center; 
+  height: 100vh;
+}
+.center{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  text-align: center;
+  margin: auto;
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid black;
+}
+.seccontainer {
+  display: flex;
+  flex-direction: row; 
+  justify-content: flex-start; 
+  align-items: center; 
+}
+.beside {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
+.table {
+  border-collapse: collapse;
+  border: 1px solid black;
+  margin: auto; 
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

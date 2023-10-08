@@ -1,35 +1,72 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const Table = (props) => {
-    const TableHeader =  {
-        border: '1px solid black',
-        padding: '8px',
-        textAlign: 'left',
-        backgroundColor: '#f2f2f2',
-      };
-    
-    const TableCell = {
-        border: '1px solid black',
-        padding: '8px',
-        textAlign: 'left',
-      };
+const Table = ({courseData}) => {
+  const qpigrade = (grade) => {
+    switch (grade) {
+      case 'A':
+        return 4;
+      case 'B':
+        return 3;
+      case 'C':
+        return 2;
+      case 'D':
+        return 1;
+      case 'F':
+        return 0;
+      default:
+        return 0;
+    }
+  }
+
+  const calculate = () => {
+    const totalscore = courseData.reduce(
+      (total, course) => total + qpigrade(course.grade) * course.units,
+      0
+    );
+    const totalUnits = courseData.reduce(
+      (total, course) => total + parseFloat(course.units),
+      0
+    );
+    return totalUnits !== 0 ? totalscore / totalUnits : 0;
+  };
+
+  const [searchText, setSearchText] = useState('');
+
+  const filteredCourses = courseData.filter(
+    (course) => 
+    course.courseNo.toLowerCase().includes(searchText.toLowerCase()) ||
+    course.courseName.toLowerCase().includes(searchText.toLowerCase())
+  );
   return (
-    <>
-    <table style={{borderCollapse: 'collapse', width: '40%' } }>
+    <div className='center'>
+      <h4>Course</h4>
+      <input type='text' placeholder='Search Course No' value={searchText} onChange={(e) => setSearchText(e.target.value)}/>
+      <table className='table'>
+        <thead>
         <tr>
-            <th style={TableHeader}>Course No</th>
-            <th style={TableHeader}>Course Name</th>
-            <th style={TableHeader}>Units</th>
-            <th style={TableHeader}>Grade</th>
+          <th className='th'>Course No</th>
+          <th className='th'>Subject</th>
+          <th className='th'>Units</th>
+          <th className='th'>Grade</th>
         </tr>
-        <tr>
-            <td style={TableCell}>IT 2014</td>
-            <td style={TableCell}>Elective 2</td>
-            <td style={TableCell}>4</td>
-            <td style={TableCell}>A</td>
-        </tr>
-    </table>
-    </>
+        </thead>
+        <tbody>
+          {filteredCourses.map((course, index) => (
+             <tr key={index}>
+             <td className='td'>{course.courseNo}</td>
+             <td className='td'>{course.courseName}</td>
+             <td className='td'>{course.units}</td>
+             <td className='td'>{course.grade}</td>
+           </tr>
+          ))}
+          <tr>
+            <td className='td' colSpan='2'></td>
+            <td className='td'>Total: </td>
+            <td className='td'>{calculate().toFixed(2)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   )
 }
 
